@@ -28,18 +28,14 @@ public class PlayerMovement : MonoBehaviour
 	{
 		float x = Input.GetAxis("HorizontalMovement");
 		float y = Input.GetAxis("VerticalMovement");
-		
-//		if ((0 != x) || (0 != y)) {
-//			Debug.Log("v " + x + "," + y);
-//		}
-		
 		body.velocity = new Vector3(x, 0, y) * moveSpeed;
 		
 		float lookX = Input.GetAxis("HorizontalRotation");
 		float lookY = Input.GetAxis("VerticalRotation");
-		
 		if ((0 != lookX) || (0 != lookY))
+		{
 			body.rotation = Quaternion.LookRotation(new Vector3(lookX, 0, lookY));
+		}
 		
 		ResetLights();
 		
@@ -61,8 +57,9 @@ public class PlayerMovement : MonoBehaviour
 	
 	void CheckAxis(string name)
 	{
+		float deadZone = 0.2f;
 		float f = Input.GetAxis(name);
-		if (f > 0) {
+		if (Mathf.Abs (f) > deadZone) {
 			Debug.Log (name + " " + f);
 		}
 	}
